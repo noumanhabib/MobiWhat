@@ -70,6 +70,13 @@ li.nav-item.active > a {
     }
 }
 
+/* Auth Views [login, register, ...] styles */
+.auth-view {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+/* SearchBar component styles */
 .searchBar {
     display: flex;
     align-items: center;
@@ -121,6 +128,27 @@ li.nav-item.active > a {
     padding-left: 15px;
     font-family: Nunito;
     padding-right: 125px;
+}
+
+.searchBar .options {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #ebebeb;
+    width: 100%;
+    border-top-left-radius: 10px;
+    z-index: 4;
+}
+.searchBar .options span {
+    margin: 0;
+    user-select: none;
+    cursor: pointer;
+    padding: 7px;
+    padding-bottom: 0;
+}
+
+.searchBar .options span:hover {
+    background: white;
 }
 
 @media (max-width: 450px) {
@@ -588,24 +616,74 @@ input#brand-sort-az.active::before {
 .mobile p.description {
     padding: 20px 0;
     text-align: justify;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    width: clamp(45ch, 50%, 75ch);
+    font-size: 1rem;
+    width: clamp(60ch, 60%, 85ch);
     margin: auto;
 }
-.mobile .images {
+.mobile .mobile-images {
     display: flex;
-    width: 100%;
-    height: 250px;
-    overflow-x: scroll;
-    gap: 80px;
-    padding: 10px 0;
+    justify-content: space-around;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+.mobile .mobile-images img {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+}
+
+.card-body .info-item {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    align-items: center;
+    border-bottom: 1px solid;
+}
+.info-item + .info-item {
+    padding-top: 15px;
+}
+.card-body .info-item .item-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.card-body .info-item .item-value {
+    text-transform: capitalize;
+}
+
+.card-body .all-info-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+    align-items: end;
+}
+.card-body .all-info-item .info-item-group {
+    font-size: 1.2rem;
+    font-weight: bold;
+    align-self: center;
+}
+.card-body .all-info-item .info-item-name div {
+    margin-bottom: 10px;
+    border-bottom: 1px solid;
+}
+.card-body .all-info-item .info-item-value div {
+    margin-bottom: 10px;
+    border-bottom: 1px solid;
+}
+.all-info-item + .all-info-item {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 2px solid;
+}
+
+.mobile-reviews {
     margin-top: 30px;
-    margin-bottom: 30px;
+}
+.mobile-reviews .review-item {
+    margin-bottom: 25px;
+}
+.mobile-reviews .review-item p {
+    margin: 0;
 }
 
 /* Scroll bar styling */
-
 #mobile-product-image-div::-webkit-scrollbar {
     height: 10px;
 }
@@ -768,6 +846,20 @@ span.multiselect-native-select select {
 
 .compare-factors {
     gap: 20px;
+}
+
+.table.comp-result-table th,
+.table.comp-result-table td {
+    padding: 1.5rem 0.5rem;
+}
+.table.comp-result-table th {
+    font-weight: bold;
+}
+.comp-result-table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /*Favourites styles*/
@@ -1071,4 +1163,75 @@ button.btn-trash-rm:hover {
 }
 .range-slider > .max-range-value {
     right: 0;
+}
+
+/* Admin styles */
+.admin-container i.fas.fa-2x.fa-pen-square {
+    font-size: 25px;
+    margin-right: 5px;
+    transition-property: transform;
+    transition-duration: 0.3s;
+}
+.admin-container i.fas.fa-2x.fa-pen-square:hover {
+    transform: scale(1.2);
+}
+.admin-container i.fa.fa-trash {
+    color: red;
+    font-size: 22px;
+    margin-left: 5px;
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+}
+
+.admin-container i.fa.fa-trash:hover {
+    transform: scale(1.2);
+}
+.admin-container .delete-btn,
+.admin-container .update-btn {
+    display: contents;
+}
+.admin-container i {
+    font-size: 25px;
+}
+
+.btn.btn-danger i.fa.fa-trash {
+    color: white;
+}
+
+.font-1-2 {
+    font-size: 1.2rem;
+}
+
+.admin-container .edit-info {
+    margin-top: 20px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 250px 400px;
+    margin-bottom: 40px;
+}
+.admin-container .edit-info .info {
+    display: flex;
+    align-items: start;
+}
+.admin-container .edit-info .info .text-bold {
+    font-weight: bold;
+}
+.admin-container .edit-info .info p {
+    margin-bottom: 0;
+}
+.admin-container .edit-info .input-info-p {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    color: #03a9f4;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-container .edit-info .info input {
+    width: 250px;
+}
+.admin-container .info.area-info {
+    height: 150px;
+    margin-bottom: 20px;
 }

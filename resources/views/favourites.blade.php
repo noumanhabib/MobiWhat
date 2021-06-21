@@ -7,7 +7,7 @@
         also remove mobiles from list.</p>
 
     <h4 class="mt-3">Favourite mobiles list</h4>
-    <table class=" table table-striped">
+    <table class="table table-striped" id="fav-table">
         <thead>
             <tr>
                 <th>No#</th>
@@ -18,44 +18,37 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Samsung Galaxy A20s</td>
-                <td>Samsung</td>
-                <td>
-                    <img src="{{asset("storage/slides/mob1.jpg")}}" width="50" alt="">
-                </td>
-                <td>
-                    <button class="btn btn-trash-rm"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Samsung Galaxy A20s</td>
-                <td>Samsung</td>
-                <td>
-                    <img src="{{asset("storage/slides/mob2.jpg")}}" width="50" alt="">
-                </td>
-                <td>
-                    <button class="btn btn-trash-rm"><i class="fas fa-trash"></i></button>
 
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Samsung Galaxy A20s</td>
-                <td>Samsung</td>
-                <td>
-                    <img src="{{asset("storage/slides/mob3.jpg")}}" width="50" alt="">
-                </td>
-                <td>
-                    <button class="btn btn-trash-rm"><i class="fas fa-trash"></i></button>
 
-                </td>
-            </tr>
         </tbody>
 
     </table>
 </div>
 @endsection
 
+@push('scripts')
+<script>
+    const favTableBody = document.querySelector("#fav-table tbody");
+    if(favList.length > 0){
+        url = `{{config('app.url')}}/api/mobile-list?q=favList`;
+            ajaxRequest(url, function(data){
+                data = JSON.parse(data);
+                data.forEach((mobile, i) => {
+                    let row = createFavRow(mobile, i+1);
+                    favTableBody.appendChild(row);
+                    addDeleteListener(mobile.id, row);
+                });
+
+            }, "GET", {favList});
+    }
+
+    function addDeleteListener(id, row){
+        let deleteBtn = row.querySelector(".btn-trash-rm");
+        deleteBtn.addEventListener("click", (e) => {
+            removeFromFav(id);
+            favTableBody.removeChild(row);
+            $("#fav-added")[0].innerText = favList.length;
+        })
+    }
+</script>
+@endpush

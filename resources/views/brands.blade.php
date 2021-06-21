@@ -10,140 +10,46 @@
         <input class="brand-sort-input" type="radio" name="brand-sort" id="brand-sort-az" attr="A-Z">
     </div>
 
-    <div class="brands">
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Samsung</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Oppo</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Huvawie</a>
-        </div>
-        <div class="brand-item">
-            <a href="#">Google</a>
-        </div>
-
+    <div class="brands" id="brands-list">
     </div>
 </div>
+
+@push('scripts')
+<script>
+    var topList;
+    var azList;
+    $(document).ready(function() {
+        var listBrandTop = [];
+        ajaxRequest("http://localhost:8000/api/brands", function(data){
+            let brands = JSON.parse(data);
+            brands.forEach(d => {
+                listBrandTop.push(d.name);
+            });
+            updateBrandList(listBrandTop, "#brands-list");
+
+            topList = [...listBrandTop];
+            azList= listBrandTop.sort();
+        });
+
+        $("#brand-sort-az").on("change", function(e) {
+            if(e.target.value === "on"){
+                e.target.classList.add("active");
+                $("#brand-sort-top")[0].classList.remove("active");
+                $("#brand-sort-top")[0].checked = false;
+
+                updateBrandList(azList, "#brands-list");
+            }
+        });
+        $("#brand-sort-top").on("change", function(e) {
+            if(e.target.value === "on"){
+                e.target.classList.add("active");
+                $("#brand-sort-az")[0].classList.remove("active");
+                $("#brand-sort-az")[0].checked = false;
+
+                updateBrandList(topList, "#brands-list");
+            }
+        });
+    });
+</script>
+@endpush
 @endsection

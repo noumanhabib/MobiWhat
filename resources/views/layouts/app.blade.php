@@ -7,11 +7,51 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>MobiWhat</title>
 
-    <!-- Scripts -->
+    {{-- Meta tags --}}
+    <meta name="description"
+        content="This website is to show mobile informations and latest mobile price with lot of features like search and comparison." />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:type" content="information" />
+    <meta property="og:title" content="MobiWhat" />
+    <meta property="og:description"
+        content="This website is to show mobile informations and latest mobile price with lot of features like search and comparison." />
+    <meta property="og:site_name" content="MobiWhat" />
+    <meta name="twitter:title" content="MobiWhat" />
+    <meta name="twitter:description"
+        content="This website is to show mobile informations and latest mobile price with lot of features like search and comparison." />
+    <meta name="twitter:site" content="@noumanhabib" />
+    <meta name="twitter:creator" content="@noumanhabib" />
+    <meta name="keywords" content="mobiwhat, what mobile, mobiles, mobile prices, mobiles info," />
+    <meta name="description"
+        content="This website is to show mobile informations and latest mobile price with lot of features like search and comparison." />
+    <meta name="subject" content="Mobile Information Website" />
+    <meta name="copyright" content="MobiWhat" />
+    <meta name="language" content="en" />
+    <meta name="abstract" content="All about mobiles." />
+    <meta name="topic" content="Mobiles Information and Comparison" />
+    <meta name="summary"
+        content="This website is to show mobile informations and latest mobile price with lot of features like search and comparison." />
+    <meta name="Classification" content="Informational" />
+    <meta name="author" content="noumanhabib, noumanhabib521@gmail.com" />
+    <meta name="designer" content="Nouman Habib" />
+    <meta name="copyright" content="all rights reserved to mobiwhat" />
+    <meta name="reply-to" content="noumanhabib521@gmail.com" />
+    <meta name="owner" content="Nouman Habib" />
+    <meta name="url" content="localhost:8000" />
+    <meta name="coverage" content="Worldwide" />
+    <meta name="distribution" content="Global" />
+    <meta name="rating" content="General" />
+    <meta name="revisit-after" content="7 days" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
 
+    {{-- Fav icon --}}
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -58,10 +98,10 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item d-flex align-items-center nav-comp">
-                            <a title="Comparison" href="#" class="nav-link pb-0 d-none d-lg-block">
+                            <a title="Comparison" href="/comparison" class="nav-link pb-0 d-none d-lg-block">
                                 <i class="fas fa-equals" style="font-size: 1.4rem;"></i>
                             </a>
-                            <a href="#" class="nav-link d-lg-none">Comparison</a>
+                            <a href="/comparison" class="nav-link d-lg-none">Comparison</a>
                             <span class="comp-added" id="comp-added">0</span>
                         </li>
                         <li
@@ -94,10 +134,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if (Auth::user()->type === "admin")
+                                <a href="/admin" class="dropdown-item">Admin</a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
+
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
@@ -109,6 +153,18 @@
                 </div>
             </div>
         </nav>
+        @if (session('message'))
+        <div class="alert alert-success text-center mt-3"
+            style="justify-content: center;font-size: 1rem;padding: 0.5rem 0;margin: 0;">
+            {{ session('message') }}
+        </div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger text-center mt-3"
+            style="justify-content: center;font-size: 1rem;padding: 0.5rem 0;margin: 0;">
+            {{ session('error') }}
+        </div>
+        @endif
         @yield('searchBar')
         <main>
             @yield('content')
@@ -184,7 +240,9 @@
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
     @stack('scripts')
 </body>
 
 </html>
+
